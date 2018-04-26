@@ -1,0 +1,25 @@
+
+CRAFT preprocessing for Heimdall
+
+  src:      psrdada linked programs
+  sigproc:  sigproc header files
+
+  Assumptions:
+
+    1.  Numa Node 0
+    2.  84 samples (@ 1.266ms resolution) per input block
+    3.  Reblock factor of 64:
+        3.1   Output block size of 5376 samples
+        3.2   Output block length (heimdall processing chunk) 6.8s 
+    4.  16-bit unsigned integer requantisation
+    5.  Use first 2048 samples to set offsets and scales for requantisation 
+    6.  FB channels 314 and 321 are to be ignored be zapped
+    
+  Processing Usage:
+
+    1.  dada_db -b 8128512 -a 16384 -p -l -c 0 -k dada      [input block]
+    2.  dada_db -b dada_db -b -a 16384 -p -l -c 1 -k eada   [output block]
+    3.  craft_dbtransposedb dada eada -s                    [transpose, rescale, requantise]
+    4.  heimdall -k eada -dm 0 1000 -boxcar_max 64 -dm_tol 1.1 -v -zap_chans 314 315 -zap_chans 321 322
+
+  
