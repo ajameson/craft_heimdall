@@ -83,6 +83,13 @@ configure
 depcomp
 install-sh
 ltmain.sh
+libtool
 missing
 Makefile.in
 Makefile
+stamp-h1
+
+# compiled binaries
+src/craft_dbsigproc
+src/craft_dbtransposedb
+

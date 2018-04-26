@@ -1,8 +1,25 @@
 
 CRAFT preprocessing for Heimdall
 
-  src:      psrdada linked programs
-  sigproc:  sigproc header files
+  Prerequisites:
+
+    1.  PSRDada installed (http://psrdada.sourceforge.net) 
+    2.  SOFA library (http://www.iausofa.org/)
+
+
+  Build:
+
+    1.  Ensure psrdada_cflags in the $PATH
+    2.  Build the SOFA library and install (e.g. to $HOME/opt/sofa)
+    3.  ./bootstrap
+    4.  ./configure --prefix=$HOME/linux_64 --with-sofa-dir=$HOME/opt/sofa
+    5.  make
+    6.  make insall
+
+  Contents:
+
+    src:      psrdada linked programs
+    sigproc:  sigproc header files
 
   Assumptions:
 
@@ -22,4 +39,7 @@ CRAFT preprocessing for Heimdall
     3.  craft_dbtransposedb dada eada -s                    [transpose, rescale, requantise]
     4.  heimdall -k eada -dm 0 1000 -boxcar_max 64 -dm_tol 1.1 -v -zap_chans 314 315 -zap_chans 321 322
 
-  
+    This assumes that something else (e.g. craft_udpdb or dada_diskdb) is filling buffer "dada" with 32-bit TFBP ordered samples
+
+    heimdall will write out a candidate file (optionally to a listening socket) with the candidates it detects for each 5376 sample block
+
